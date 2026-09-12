@@ -3,6 +3,7 @@ use valence::privacy_policies::common::{AUTHENTICATED, SYSTEM_ONLY};
 
 valence_schema! {
     E2eHistorySourceA {
+        repository: "https://github.com/unified-field-dev/record-history",
         table: "e2e_history_source_a",
         version: "0.1.0",
         database: crate::embedded_surreal::DEFAULT_STORAGE,
