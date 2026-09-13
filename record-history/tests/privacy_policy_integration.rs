@@ -36,7 +36,7 @@ async fn fixture_history_create_is_system_only_sad() {
         Some(RecordId::new("user", USER_A)),
     )
     .expect("build history row");
-    let seeded = E2eRecordHistoryFixture::create(seed, &system)
+    let seeded = E2eRecordHistoryFixture::create_used(seed, &system, valence::use_!("create E2eRecordHistoryFixture in record-history/tests/privacy_policy_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .await
         .expect("system may create fixture history");
     let history_id = seeded
@@ -74,7 +74,7 @@ async fn fixture_history_create_is_system_only_sad() {
         Some(RecordId::new("user", USER_A)),
     )
     .expect("build forged row");
-    let forge_attempt = E2eRecordHistoryFixture::create(forged, &outsider).await;
+    let forge_attempt = E2eRecordHistoryFixture::create_used(forged, &outsider, valence::use_!("create E2eRecordHistoryFixture in record-history/tests/privacy_policy_integration.rs; Valence persistence for this feature path; typed store; visible to test harness.")).await;
     assert!(
         forge_attempt.is_err(),
         "authenticated E2eRecordHistoryFixture::create must fail under SYSTEM_ONLY create"
@@ -99,7 +99,7 @@ async fn fixture_history_read_defers_to_parent_authenticated_happy_path() {
         Some(RecordId::new("user", USER_A)),
     )
     .expect("build");
-    let seeded = E2eRecordHistoryFixture::create(seed, &system)
+    let seeded = E2eRecordHistoryFixture::create_used(seed, &system, valence::use_!("create E2eRecordHistoryFixture in record-history/tests/privacy_policy_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .await
         .expect("system create");
     let history_id = seeded

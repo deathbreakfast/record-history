@@ -23,7 +23,7 @@ pub async fn resolve_actor_presentation(
     let bare_user_id = valence::ownership::normalize_record_id_for_ownership(&user_id);
     let href = actor_profile_href(&bare_user_id);
 
-    match User::get(&bare_user_id, valence).await {
+    match User::get_used(&bare_user_id, valence, valence::use_!("get User in src/server/actor.rs; Valence persistence for this feature path; typed store; visible to session actor / service path.")).await {
         Ok(Some(user)) => {
             let name = user
                 .get_profile(valence)

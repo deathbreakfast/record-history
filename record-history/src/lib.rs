@@ -112,9 +112,9 @@
 //!     chrono::Utc::now(),
 //!     None, // actor: None => timeline shows "System"
 //! )?;
-//! E2eRecordHistoryFixture::upsert("row-1", row, &valence).await?;
+//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!("upsert E2eRecordHistoryFixture in record-history/src/lib.rs; Valence persistence for this feature path; typed store; visible to session actor / service path.")).await?;
 //!
-//! let stored = E2eRecordHistoryFixture::get("row-1", &valence)
+//! let stored = E2eRecordHistoryFixture::get_used("row-1", &valence, valence::use_!("get E2eRecordHistoryFixture in record-history/src/lib.rs; Valence persistence for this feature path; typed store; visible to session actor / service path."))
 //!     .await?
 //!     .expect("row written");
 //! assert_eq!(stored.field_name(), "name");
@@ -179,7 +179,7 @@
 //!     chrono::Utc::now(),
 //!     None,
 //! )?;
-//! E2eRecordHistoryFixture::upsert("row-1", row, &valence).await?;
+//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!("upsert E2eRecordHistoryFixture in record-history/src/lib.rs; Valence persistence for this feature path; typed store; visible to session actor / service path.")).await?;
 //!
 //! // 2. Read — ACL-aware load across every RecordHistory implementor for source.
 //! let rows = history_for_source(&source, &valence).await?;

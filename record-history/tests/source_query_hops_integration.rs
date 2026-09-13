@@ -85,7 +85,7 @@ async fn query_record_history_refines_to_fixture_table_happy_path() {
     )
     .await;
 
-    let rows = E2eHistorySourceA::query(&valence)
+    let rows = E2eHistorySourceA::query_used(&valence, valence::use_!("query E2eHistorySourceA in record-history/tests/source_query_hops_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .where_label(valence::StringPredicate::Equals("Source A".to_string()))
         .query_record_history()
         .where_is_e2e_record_history_fixture()
@@ -129,7 +129,7 @@ async fn history_for_source_unions_kinds_happy_path() {
     assert!(kinds.contains(&"e2e_record_history_fixture_alt"));
 
     // Refined reverse hop still works for a single kind.
-    let fixture_only = E2eHistorySourceA::query(&valence)
+    let fixture_only = E2eHistorySourceA::query_used(&valence, valence::use_!("query E2eHistorySourceA in record-history/tests/source_query_hops_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .where_id(valence::StringPredicate::Equals(
             TEST_SOURCE_A_ID.to_string(),
         ))

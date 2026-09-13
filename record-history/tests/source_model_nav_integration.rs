@@ -99,7 +99,7 @@ async fn get_record_history_isolated_per_source() {
     )
     .await;
 
-    let source_a = E2eHistorySourceA::get(TEST_SOURCE_A_ID, &valence)
+    let source_a = E2eHistorySourceA::get_used(TEST_SOURCE_A_ID, &valence, valence::use_!("get E2eHistorySourceA in record-history/tests/source_model_nav_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .await
         .expect("get")
         .expect("a");

@@ -125,11 +125,11 @@ pub fn as_user(base: &Valence, user_id: &str) -> Valence {
 
 pub async fn seed_sources(valence: &Valence) {
     let a = E2eHistorySourceA::new("Source A".to_string()).expect("new source a");
-    E2eHistorySourceA::upsert(TEST_SOURCE_A_ID, a, valence)
+    E2eHistorySourceA::upsert_used(TEST_SOURCE_A_ID, a, valence, valence::use_!("upsert E2eHistorySourceA in record-history/tests/helpers.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .await
         .expect("upsert source a");
     let b = E2eHistorySourceB::new("Source B".to_string()).expect("new source b");
-    E2eHistorySourceB::upsert(TEST_SOURCE_B_ID, b, valence)
+    E2eHistorySourceB::upsert_used(TEST_SOURCE_B_ID, b, valence, valence::use_!("upsert E2eHistorySourceB in record-history/tests/helpers.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .await
         .expect("upsert source b");
 }
@@ -138,7 +138,7 @@ pub async fn seed_owned_source(valence: &Valence, owner_user_id: &str) {
     seed_user(owner_user_id, "owner@example.com", valence).await;
     let owned = E2eHistorySourceOwned::new("Owned Source".to_string(), owner_user_id.to_string())
         .expect("new owned source");
-    E2eHistorySourceOwned::upsert(TEST_OWNED_SOURCE_ID, owned, valence)
+    E2eHistorySourceOwned::upsert_used(TEST_OWNED_SOURCE_ID, owned, valence, valence::use_!("upsert E2eHistorySourceOwned in record-history/tests/helpers.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .await
         .expect("upsert owned source");
 }
@@ -159,7 +159,7 @@ pub async fn seed_user(id: &str, email: &str, valence: &Valence) {
         now,
     )
     .expect("build user");
-    User::upsert(id, user, valence).await.expect("upsert user");
+    User::upsert_used(id, user, valence, valence::use_!("upsert User in record-history/tests/helpers.rs; Valence persistence for this feature path; typed store; visible to test harness.")).await.expect("upsert user");
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -184,7 +184,7 @@ pub async fn create_fixture_row(
         Some(actor),
     )
     .expect("new fixture row");
-    E2eRecordHistoryFixture::upsert(row_id, row, valence)
+    E2eRecordHistoryFixture::upsert_used(row_id, row, valence, valence::use_!("upsert E2eRecordHistoryFixture in record-history/tests/helpers.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .await
         .expect("upsert fixture row")
 }
@@ -212,7 +212,7 @@ pub async fn create_fixture_alt_row(
         Some(actor),
     )
     .expect("new fixture alt row");
-    E2eRecordHistoryFixtureAlt::upsert(row_id, row, valence)
+    E2eRecordHistoryFixtureAlt::upsert_used(row_id, row, valence, valence::use_!("upsert E2eRecordHistoryFixtureAlt in record-history/tests/helpers.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .await
         .expect("upsert fixture alt row")
 }
@@ -278,7 +278,7 @@ pub async fn query_fixture_ordered(
 ) -> Vec<E2eRecordHistoryFixture> {
     use record_history::RecordHistoryQueryRefineE2eRecordHistoryFixture;
 
-    RecordHistoryQueryAll::query(valence)
+    RecordHistoryQueryAll::query_used(valence, valence::use_!("query RecordHistoryQueryAll in record-history/tests/helpers.rs; Valence persistence for this feature path; typed store; visible to test harness."))
         .where_source(valence::RecordPredicate::Equals(source.clone()))
         .where_is_e2e_record_history_fixture()
         .order_by_changed_at(direction)

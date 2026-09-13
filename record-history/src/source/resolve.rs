@@ -32,11 +32,11 @@ pub async fn resolve_history_source(
     }
     match record_id.table() {
         "e2e_history_source_a" => {
-            let row = E2eHistorySourceA::get(record_id.id(), valence).await?;
+            let row = E2eHistorySourceA::get_used(record_id.id(), valence, valence::use_!("get E2eHistorySourceA in src/source/resolve.rs; Valence persistence for this feature path; typed store; visible to session actor / service path.")).await?;
             Ok(row.map(ResolvedHistorySource::A))
         }
         "e2e_history_source_b" => {
-            let row = E2eHistorySourceB::get(record_id.id(), valence).await?;
+            let row = E2eHistorySourceB::get_used(record_id.id(), valence, valence::use_!("get E2eHistorySourceB in src/source/resolve.rs; Valence persistence for this feature path; typed store; visible to session actor / service path.")).await?;
             Ok(row.map(ResolvedHistorySource::B))
         }
         _ => Ok(None),
