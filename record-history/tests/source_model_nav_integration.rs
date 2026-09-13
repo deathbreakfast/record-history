@@ -99,7 +99,7 @@ async fn get_record_history_isolated_per_source() {
     )
     .await;
 
-    let source_a = E2eHistorySourceA::get_used(TEST_SOURCE_A_ID, &valence, valence::use_!("get E2eHistorySourceA in record-history/tests/source_model_nav_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
+    let source_a = E2eHistorySourceA::get_used(TEST_SOURCE_A_ID, &valence, valence::use_!(r#"**Test:** Fixture **E2e History Source A** load for `tests` so the suite can arrange and assert persistence behavior. CI and developers running the suite only."#))
         .await
         .expect("get")
         .expect("a");

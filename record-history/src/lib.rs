@@ -112,9 +112,9 @@
 //!     chrono::Utc::now(),
 //!     None, // actor: None => timeline shows "System"
 //! )?;
-//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!("upsert E2eRecordHistoryFixture in record-history/src/lib.rs; Valence persistence for this feature path; typed store; visible to session actor / service path.")).await?;
+//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!(r#"When **record history** needs to persist work, we **save E2e Record History Fixture** so the next step in that feature can continue with the latest values. People and services allowed for **record history** use this data for that workflow—not as a general export of unrelated personal fields."#)).await?;
 //!
-//! let stored = E2eRecordHistoryFixture::get_used("row-1", &valence, valence::use_!("get E2eRecordHistoryFixture in record-history/src/lib.rs; Valence persistence for this feature path; typed store; visible to session actor / service path."))
+//! let stored = E2eRecordHistoryFixture::get_used("row-1", &valence, valence::use_!(r#"In **record history**, we **load E2e Record History Fixture** so the application can decide what to do next in this workflow. The result is used by **record history** logic—not necessarily displayed on a page unless that feature’s UI shows it."#))
 //!     .await?
 //!     .expect("row written");
 //! assert_eq!(stored.field_name(), "name");
@@ -179,7 +179,7 @@
 //!     chrono::Utc::now(),
 //!     None,
 //! )?;
-//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!("upsert E2eRecordHistoryFixture in record-history/src/lib.rs; Valence persistence for this feature path; typed store; visible to session actor / service path.")).await?;
+//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!(r#"When **record history** needs to persist work, we **save E2e Record History Fixture** so the next step in that feature can continue with the latest values. People and services allowed for **record history** use this data for that workflow—not as a general export of unrelated personal fields."#)).await?;
 //!
 //! // 2. Read — ACL-aware load across every RecordHistory implementor for source.
 //! let rows = history_for_source(&source, &valence).await?;

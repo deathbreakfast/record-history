@@ -151,7 +151,7 @@ async fn seed_fixture_actor(valence: &Valence) {
         now,
     )
     .expect("build user");
-    User::upsert_used(FIXTURE_ACTOR_ID, user, valence, valence::use_!("upsert User in timeline-host/src/main.rs; Valence persistence for this feature path; typed store; visible to session actor / service path."))
+    User::upsert_used(FIXTURE_ACTOR_ID, user, valence, valence::use_!(r#"When **timeline host** needs to persist work, we **save User** so the next step in that feature can continue with the latest values. People and services allowed for **timeline host** use this data for that workflow—not as a general export of unrelated personal fields."#))
         .await
         .expect("upsert fixture actor");
 }
@@ -174,7 +174,7 @@ async fn upsert_fixture(
         Some(fixture_actor()),
     )
     .expect("new fixture");
-    E2eRecordHistoryFixture::upsert_used(row_id, row, valence, valence::use_!("upsert E2eRecordHistoryFixture in timeline-host/src/main.rs; Valence persistence for this feature path; typed store; visible to session actor / service path."))
+    E2eRecordHistoryFixture::upsert_used(row_id, row, valence, valence::use_!(r#"When **timeline host** needs to persist work, we **save E2e Record History Fixture** so the next step in that feature can continue with the latest values. People and services allowed for **timeline host** use this data for that workflow—not as a general export of unrelated personal fields."#))
         .await
         .expect("upsert fixture");
 }
@@ -183,7 +183,7 @@ async fn bootstrap_timeline() -> HostState {
     let valence = setup_valence().await;
     seed_fixture_actor(&valence).await;
     let source = E2eHistorySourceA::new("Timeline Source".into()).expect("source");
-    E2eHistorySourceA::upsert_used(SOURCE_ID, source, &valence, valence::use_!("upsert E2eHistorySourceA in timeline-host/src/main.rs; Valence persistence for this feature path; typed store; visible to session actor / service path."))
+    E2eHistorySourceA::upsert_used(SOURCE_ID, source, &valence, valence::use_!(r#"When **timeline host** needs to persist work, we **save E2e History Source A** so the next step in that feature can continue with the latest values. People and services allowed for **timeline host** use this data for that workflow—not as a general export of unrelated personal fields."#))
         .await
         .expect("upsert source");
 

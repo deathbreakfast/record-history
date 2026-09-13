@@ -86,10 +86,10 @@ async fn cascade_deletes_history_in_both_implementor_tables_happy_path() {
     );
 
     // Source delete may soft-delete (pending deletion) depending on valence deletion mode.
-    let source_delete = E2eHistorySourceA::delete_used(TEST_SOURCE_A_ID, &valence, valence::use_!("delete E2eHistorySourceA in record-history/tests/source_deletion_integration.rs; Valence persistence for this feature path; typed store; visible to test harness.")).await;
+    let source_delete = E2eHistorySourceA::delete_used(TEST_SOURCE_A_ID, &valence, valence::use_!(r#"**Test:** Fixture **E2e History Source A** remove for `tests` so the suite can arrange and assert persistence behavior. CI and developers running the suite only."#)).await;
     match source_delete {
         Ok(()) => {
-            let got = E2eHistorySourceA::get_used(TEST_SOURCE_A_ID, &valence, valence::use_!("get E2eHistorySourceA in record-history/tests/source_deletion_integration.rs; Valence persistence for this feature path; typed store; visible to test harness.")).await;
+            let got = E2eHistorySourceA::get_used(TEST_SOURCE_A_ID, &valence, valence::use_!(r#"**Test:** Fixture **E2e History Source A** load for `tests` so the suite can arrange and assert persistence behavior. CI and developers running the suite only."#)).await;
             assert!(
                 matches!(got, Ok(None))
                     || got
@@ -115,7 +115,7 @@ async fn delete_empty_source_succeeds_happy_path() {
     let valence = setup_valence().await;
     seed_sources(&valence).await;
 
-    E2eHistorySourceB::delete_used(helpers::TEST_SOURCE_B_ID, &valence, valence::use_!("delete E2eHistorySourceB in record-history/tests/source_deletion_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
+    E2eHistorySourceB::delete_used(helpers::TEST_SOURCE_B_ID, &valence, valence::use_!(r#"**Test:** Fixture **E2e History Source B** remove for `tests` so the suite can arrange and assert persistence behavior. CI and developers running the suite only."#))
         .await
         .expect("delete empty source");
 }
@@ -141,7 +141,7 @@ async fn user_delete_history_row_blocked_sad() {
     .await;
 
     let user_v = as_user(&valence, "c4-actor");
-    let err = E2eRecordHistoryFixture::delete_used("c4-row", &user_v, valence::use_!("delete E2eRecordHistoryFixture in record-history/tests/source_deletion_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
+    let err = E2eRecordHistoryFixture::delete_used("c4-row", &user_v, valence::use_!(r#"**Test:** Fixture **E2e Record History Fixture** remove for `tests` so the suite can arrange and assert persistence behavior. CI and developers running the suite only."#))
         .await
         .expect_err("history rows must reject direct user delete");
     let msg = err.to_string().to_lowercase();
@@ -156,7 +156,7 @@ async fn user_delete_history_row_blocked_sad() {
     );
 
     assert!(
-        E2eRecordHistoryFixture::get_used("c4-row", &valence, valence::use_!("get E2eRecordHistoryFixture in record-history/tests/source_deletion_integration.rs; Valence persistence for this feature path; typed store; visible to test harness."))
+        E2eRecordHistoryFixture::get_used("c4-row", &valence, valence::use_!(r#"**Test:** Fixture **E2e Record History Fixture** load for `tests` so the suite can arrange and assert persistence behavior. CI and developers running the suite only."#))
             .await
             .expect("get")
             .is_some(),

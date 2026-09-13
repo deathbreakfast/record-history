@@ -67,6 +67,6 @@ pub async fn authorize_history_source_read(
         Err(valence::Error::Privacy(_)) => Err(HistoryError::access_denied(
             HistoryAccessDeniedReason::ParentReadDenied,
         )),
-        Err(e) => Err(HistoryError::query_used(e, valence::use_!("query HistoryError in src/source/authorize.rs; Valence persistence for this feature path; typed store; visible to session actor / service path."))),
+        Err(e) => Err(HistoryError::query_used(e, valence::use_!(r#"In **source**, we **list History Error** so the product can show or process the matching set for this workflow. Callers allowed for **source** use the list; it is not a public dump of every field to anonymous visitors."#))),
     }
 }
