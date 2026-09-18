@@ -4,6 +4,7 @@ use valence::privacy_policies::owner::OWNER_BY_USER_FIELD;
 
 valence_schema! {
     E2eHistorySourceOwned {
+        repository: "https://github.com/unified-field-dev/record-history",
         table: "e2e_history_source_owned",
         version: "0.1.0",
         database: crate::embedded_surreal::DEFAULT_STORAGE,

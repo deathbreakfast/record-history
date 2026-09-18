@@ -3,6 +3,7 @@ use valence::privacy_policies::common::{BLOCK_ALL, SYSTEM_ONLY};
 
 valence_schema! {
     E2eRecordHistoryFixtureAlt {
+        repository: "https://github.com/unified-field-dev/record-history",
         table: "e2e_record_history_fixture_alt",
         version: "0.1.3",
         database: crate::embedded_surreal::DEFAULT_STORAGE,
