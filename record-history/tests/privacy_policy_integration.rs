@@ -47,10 +47,15 @@ async fn fixture_history_create_is_system_only_sad() {
     let schema = SchemaRegistry::global()
         .get_schema("e2e_record_history_fixture")
         .expect("e2e_record_history_fixture schema registered");
-    let raw = QueryCore::get_record_json("e2e_record_history_fixture", &history_id, &system)
-        .await
-        .expect("raw get")
-        .expect("history row");
+    let raw = QueryCore::get_record_json_used(
+        "e2e_record_history_fixture",
+        &history_id,
+        &system,
+        valence::use_!(r#"**Test:** Fixture row load for `privacy_policy_integration` so the suite can assert Valence privacy policy allow and deny outcomes. CI and developers running the suite only."#),
+    )
+    .await
+    .expect("raw get")
+    .expect("history row");
 
     assert!(
         PrivacyEvaluator::check_entity_access(schema, PrivacyOperation::Create, &raw, &outsider)
@@ -110,10 +115,15 @@ async fn fixture_history_read_defers_to_parent_authenticated_happy_path() {
     let schema = SchemaRegistry::global()
         .get_schema("e2e_record_history_fixture")
         .expect("schema");
-    let raw = QueryCore::get_record_json("e2e_record_history_fixture", &history_id, &system)
-        .await
-        .expect("raw get")
-        .expect("row");
+    let raw = QueryCore::get_record_json_used(
+        "e2e_record_history_fixture",
+        &history_id,
+        &system,
+        valence::use_!(r#"**Test:** Fixture row load for `privacy_policy_integration` so the suite can assert Valence privacy policy allow and deny outcomes. CI and developers running the suite only."#),
+    )
+    .await
+    .expect("raw get")
+    .expect("row");
 
     let reader = as_user(&base, USER_A);
     assert!(
