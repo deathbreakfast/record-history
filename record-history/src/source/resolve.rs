@@ -40,11 +40,11 @@ pub async fn resolve_history_source(
     }
     match record_id.table() {
         "e2e_history_source_a" => {
-            let row = E2eHistorySourceA::get_used(record_id.id(), valence, valence::use_!(r"In **source**, we **load E2e History Source A** so the application can decide what to do next in this workflow. The result is used by **source** logic—not necessarily displayed on a page unless that feature’s UI shows it.")).await?;
+            let row = E2eHistorySourceA::get_used(record_id.id(), valence, valence::use_!(r"When a caller asks for the **record that a history timeline is about** and that record is record history's built-in **demo record A**, we **load it by its id** and hand it back to the caller. This lookup exists for the demos and tests that ship with record history; nothing is shown to anyone in this step, and the caller decides what to do with the record.")).await?;
             Ok(row.map(ResolvedHistorySource::A))
         }
         "e2e_history_source_b" => {
-            let row = E2eHistorySourceB::get_used(record_id.id(), valence, valence::use_!(r"In **source**, we **load E2e History Source B** so the application can decide what to do next in this workflow. The result is used by **source** logic—not necessarily displayed on a page unless that feature’s UI shows it.")).await?;
+            let row = E2eHistorySourceB::get_used(record_id.id(), valence, valence::use_!(r"When a caller asks for the **record that a history timeline is about** and that record is record history's built-in **demo record B**, we **load it by its id** and hand it back to the caller. This lookup exists for the demos and tests that ship with record history; nothing is shown to anyone in this step, and the caller decides what to do with the record.")).await?;
             Ok(row.map(ResolvedHistorySource::B))
         }
         _ => Ok(None),

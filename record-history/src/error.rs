@@ -42,7 +42,8 @@ impl HistoryError {
     }
 
     #[must_use]
-    pub(crate) fn query(source: valence::Error) -> Self {
+    pub(crate) fn query_used(source: valence::Error, purpose: valence::DataUsePurpose) -> Self {
+        let _ = purpose;
         Self::Query { source }
     }
 

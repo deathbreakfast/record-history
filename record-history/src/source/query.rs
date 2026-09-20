@@ -52,6 +52,7 @@ impl RecordHistoryFields for HistoryRowWire {
 fn trait_model_from(
     row: &dyn RecordHistoryFields,
     id: Option<RecordId>,
+    purpose: valence::DataUsePurpose,
 ) -> Result<RecordHistoryModel, HistoryError> {
     let value = serde_json::json!({
         "id": id,
@@ -64,7 +65,7 @@ fn trait_model_from(
     });
     serde_json::from_value(value)
         .map_err(valence::Error::serialization)
-        .map_err(HistoryError::query)
+        .map_err(|e| HistoryError::query_used(e, purpose))
 }
 
 /// All history rows for a source `RecordId` across every registered
@@ -99,13 +100,18 @@ pub async fn history_for_source(
     let predicate = RecordPredicate::Equals(source.clone());
     let tables = TraitRegistry::global().tables_for_trait("RecordHistory");
     let mut out = Vec::new();
+    // The data-use scan only lists a purpose written inline at the read. The
+    // error wraps carry a copy of the same text so they do not show up as reads.
+    let purpose = valence::use_!(
+        r"When you **view a record's history**, we **search every table that stores change history** for entries about that record, loading what changed, the old and new values, when, and who made the change. These entries become the record's **timeline**, and this step only runs after we have confirmed you are allowed to read that record."
+    );
 
     for table in tables {
         let rows: Vec<HistoryRowWire> = QueryCore::new(table.to_string())
             .where_record("source".to_string(), predicate.clone())
-            .execute_used(valence, valence::use_!(r"When you **view a record's history**, we **query every table that opted into RecordHistory** for rows matching that record, so the timeline shows every source that touched it. Only the caller allowed to read that record's history sees the result."))
+            .execute_used(valence, valence::use_!(r"When you **view a record's history**, we **search every table that stores change history** for entries about that record, loading what changed, the old and new values, when, and who made the change. These entries become the record's **timeline**, and this step only runs after we have confirmed you are allowed to read that record."))
             .await
-            .map_err(HistoryError::query)?;
+            .map_err(|e| HistoryError::query_used(e, purpose))?;
         for row in rows {
             let id = row.id.clone().map(|rid| {
                 if rid.table() == table {
@@ -114,7 +120,7 @@ pub async fn history_for_source(
                     RecordId::new(table, rid.id())
                 }
             });
-            out.push(trait_model_from(&row, id)?);
+            out.push(trait_model_from(&row, id, purpose)?);
         }
     }
 

@@ -23,7 +23,7 @@ pub async fn resolve_actor_presentation(
     let bare_user_id = valence::ownership::normalize_record_id_for_ownership(&user_id);
     let href = actor_profile_href(&bare_user_id);
 
-    match User::get_used(&bare_user_id, valence, valence::use_!(r"In **server**, we **load User** so the application can decide what to do next in this workflow. The result is used by **server** logic and is only shown in a UI when that feature’s screens display it.")).await {
+    match User::get_used(&bare_user_id, valence, valence::use_!(r"When the history timeline shows **who made a change**, we **load that person's account by its id**, using your permissions, so we can find their **display name** and a link to their profile page. If you are not allowed to read the account or it no longer exists, the entry shows a generic User label with a short id instead. Only the name or label and the link appear on the page; the account itself, including the email, is **never shown**.")).await {
         Ok(Some(user)) => {
             let name = user
                 .get_profile(valence)

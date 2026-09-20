@@ -121,9 +121,9 @@
 //!     chrono::Utc::now(),
 //!     None, // actor: None => timeline shows "System"
 //! )?;
-//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!(r"When **record history** needs to persist work, we **save E2e Record History Fixture** so the next step in that feature can continue with the latest values. People and services allowed for **record history** use this data for that workflow—not as a general export of unrelated personal fields.")).await?;
+//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!(r"When a record is changed, we **save one history entry** with the **field that changed, its old and new values, and when it changed**, so the record's timeline can list it later. No person is attached to this entry, so the timeline credits it to **System**.")).await?;
 //!
-//! let stored = E2eRecordHistoryFixture::get_used("row-1", &valence, valence::use_!(r"In **record history**, we **load E2e Record History Fixture** so the application can decide what to do next in this workflow. The result is used by **record history** logic—not necessarily displayed on a page unless that feature’s UI shows it."))
+//! let stored = E2eRecordHistoryFixture::get_used("row-1", &valence, valence::use_!(r"To confirm the write worked, we **load the history entry back by its id** and compare its **field name** and the **record it belongs to** with what we saved. Only this check reads the entry, and nothing is displayed."))
 //!     .await?
 //!     .expect("row written");
 //! assert_eq!(stored.field_name(), "name");
@@ -199,7 +199,7 @@
 //!     chrono::Utc::now(),
 //!     None,
 //! )?;
-//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!(r"When **record history** needs to persist work, we **save E2e Record History Fixture** so the next step in that feature can continue with the latest values. People and services allowed for **record history** use this data for that workflow—not as a general export of unrelated personal fields.")).await?;
+//! E2eRecordHistoryFixture::upsert_used("row-1", row, &valence, valence::use_!(r"When a record is changed, we **save one history entry** with the **field that changed, its old and new values, and when it changed**, so the record's timeline can list it later. No person is attached to this entry, so the timeline credits it to **System**.")).await?;
 //!
 //! // 2. Read — ACL-aware load across every RecordHistory implementor for source.
 //! let rows = history_for_source(&source, &valence).await?;
