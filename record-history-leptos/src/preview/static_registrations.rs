@@ -18,7 +18,7 @@ fn history_timeline_preview() -> AnyView {
             component_name="History Timeline"
             component_description_md=HISTORYTIMELINE_DOC
             component_props=HISTORYTIMELINE_PROPS
-            default=view! { <p>"Live timeline requires a running host with a Valence session."</p> }
+            default=view! { <p>"The live timeline needs a signed-in session on a running app."</p> }
         />
     }
     .into_any()
