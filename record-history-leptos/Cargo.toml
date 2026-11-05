@@ -25,6 +25,8 @@ orbital-paging = { workspace = true }
 orbital-macros = { workspace = true }
 orbital-history = { workspace = true, default-features = false }
 orbital-base-components = { workspace = true, optional = true }
+orbital-core-components = { workspace = true, optional = true }
+icondata = { workspace = true, optional = true }
 # Force crc32fast 1.5.0 through the dylint graph (see workspace pin).
 crc32fast = { workspace = true }
 
@@ -41,7 +43,13 @@ tokio = { workspace = true }
 
 [features]
 default = []
-preview = ["dep:orbital-base-components", "orbital-history/preview"]
+preview = [
+    "dep:orbital-base-components",
+    "dep:orbital-core-components",
+    "dep:icondata",
+    "orbital-core-components/preview",
+    "orbital-history/preview",
+]
 e2e-harness = []
 # Non-default; enables the doctest-only Valence bootstrap in `record-history`
 # (`doctest_support::doctest_valence`) for `cargo test --doc`. Never enabled
